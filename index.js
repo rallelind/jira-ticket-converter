@@ -1,7 +1,9 @@
 const readXlsxFile = require('read-excel-file/node')
 const ObjectsToCsv = require('objects-to-csv');
+const path = require('path');
+const fs = require('fs');
 
-const file = '/example/example.xlsx'
+const FILE = '/example/example.xlsx'
 
 let formatTicket = (row, heading) => {
     let ticketData = {}
@@ -19,10 +21,21 @@ let formatTicket = (row, heading) => {
 const convertToCSV = async (ticketsArray, sheet) => {
     const csv = new ObjectsToCsv(ticketsArray);
 
-    await csv.toDisk(`./${sheet}.csv`);
+    const csvOutputDir = './csv-output'
+
+    if(!fs.existsSync(csvOutputDir)) {
+        fs.mkdir(path.join(__dirname, 'csv-output'), (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Directory created successfully!');
+        });
+    } 
+    
+    await csv.toDisk(`./csv-output/${sheet}.csv`);
 }
 
-const convertToTicketFromFile = (file, sheet = 2) => {
+const convertToTicketFromFile = (file, sheet = 1) => {
 
     let tickets = []
 
@@ -38,7 +51,8 @@ const convertToTicketFromFile = (file, sheet = 2) => {
         })
 
         return convertToCSV(tickets, sheet) 
+
     })
 }
 
-convertToTicketFromFile(file, "Color Contrast")
+convertToTicketFromFile(FILE, "Color Contrast")
