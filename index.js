@@ -55,4 +55,4 @@ const convertToTicketFromFile = (file, sheet = 1) => {
     })
 }
 
-convertToTicketFromFile(FILE, "Color Contrast")
+convertToTicketFromFile(FILE)
