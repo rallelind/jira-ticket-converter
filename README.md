@@ -1,9 +1,9 @@
-Getting started
+### Getting started
 
-Please run the following command:
-```
-npm install
-````
+Please run the following command: ```npm install```
+
+#### After Install
+
 When everything has finished installing go to index.js file and edit the FILE variable to the path of your excel file.
 When that is done you will at the bottom see the function ```convertToTicketFromFile(FILE)``` function.
 This function takes in two paramaters: a file path and a sheet which has a default of 1. In the sheet paramater you can
